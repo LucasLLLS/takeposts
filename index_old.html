@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<div id="content">
+		<div>
+
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script>
+
+		content = [];
+
+		$(document).ready(function(){
+
+			setInterval(puxaPosts, 2000);
+
+			var firstTime = true;
+			var contentAntes;
+
+			function puxaPosts(){
+				console.log("rodou");
+				$.get("puxa.php", function(data, status){	
+
+
+					content = $.parseJSON(data);
+
+					if(firstTime){
+						for(i=0; i<content.length; i++){
+							$("#content").append("<h1>"+content[i].titulo+"</h1><p>"+content[i].conteudo+"</p><hr>");
+						}
+						firstTime = false;
+					}else{
+						var pos = content.length-1;
+						if(content.length != contentAntes.length){
+							$("#content").append("<h1>"+content[pos].titulo+"</h1><p>"+content[pos].conteudo+"</p><hr>");
+						}
+					}
+					
+					contentAntes = content;
+
+				});
+			}
+			
+		});
+
+	</script>
+	
+</body>
+</html>
