@@ -6,25 +6,6 @@
 		die("falha ao conectar");
 	}
 
-
-	if(isset($_GET['post'])){
-		//echo 'entrou';
-		$post = $_GET['post'];
-		$sql = "SELECT * FROM wp_posts WHERE ID=".$post;
-
-		$exe = mysqli_query($conn, $sql);
-
-		if(!$exe){
-			die(mysql_error());
-		}
-
-		$posts = mysqli_fetch_all($exe,MYSQLI_ASSOC);
-
-		print json_encode($posts);
-		//echo 'cabou';
-		die('opa');
-	}
-
 	$sql = "SELECT * FROM wp_posts WHERE post_type = 'post' AND post_status = 'publish'";
 	$exe = mysqli_query($conn, $sql);
 
