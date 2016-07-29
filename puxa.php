@@ -20,9 +20,29 @@
 
 		$posts = mysqli_fetch_all($exe,MYSQLI_ASSOC);
 
-		print json_encode($posts);
+		$sql = "SELECT * FROM wp_comments WHERE comment_post_ID=".$post;
+		$exe = mysqli_query($conn, $sql);
+
+		if(!$exe){
+			die(mysql_error());
+		}
+
+		$comments = mysqli_fetch_all($exe,MYSQLI_ASSOC);	
+
+		
+		//var_dump($comments);
+
+		$result = array_merge($posts, $comments);
+
+		/*print json_encode(array(
+			 'posts' => $posts
+			,'comments' => $comments
+		));*/
+
+		print json_encode($result);
+		die();
 		//echo 'cabou';
-		die('opa');
+		
 	}
 
 	$sql = "SELECT * FROM wp_posts WHERE post_type = 'post' AND post_status = 'publish'";

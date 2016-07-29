@@ -1,19 +1,12 @@
 //VARIAVEIS GLOBAIS
 
-nomePost = '';
+var nomePost;
 
 
 //JQUERY
 
 
-$(document).ready(function(){
-    
-    $('a.titulo-post').click(function(){
-        nomePost = $(this).attr('data-post-id');
-        console.log(nomePost);
-    });
 
-});
 
 var app = angular.module("takePosts", ['ngRoute']);
 //app.controller("tpController", ['$scope', '$http', posts]);
@@ -36,7 +29,6 @@ app.config(function($routeProvider) {
 });
 
 app.controller('mainController', ['$scope', '$http', posts]);
-
 app.controller('singleController', ['$scope', '$http', singlePost]);
 
 
@@ -44,27 +36,62 @@ function singlePost($scope, $http) {
 
 //    $scope.posts = 'Look! I am an about page.';
         
-        setTimeout(function(){
-            $http.get("puxa.php?post="+nomePost)
+        
+            $http.get("puxa.php",
+                {
+                    params: 
+                        {
+                            'post': nomePost
+                        }
+                })
             .then(function(response) {
-                //$scope.myWelcome  = response.data;
-                $scope.posts        = response.data;
+                $scope.posts  = response.data[0];
+                $scope.comments = response.data[1];
+                console.log(response.data[0]);
+                //$scope.posts        = 'response.data';
             });
-        }, 500);
+        
 }
 
 function posts($scope, $http){
 
 		//setInterval(function(){
-			console.log('opa');
 			$http.get("puxa.php")
 			.then(function(response) {
 		    //$scope.myWelcome 	= response.data;
 		    $scope.posts 		= response.data;
-            console.log(response.data);
+            //console.log(response.data);
+            jqueryInit();
+
 		});
+
+
+        $scope.verificaComment = verificaComment;
+
+        function verificaComment(num){
+            if(num < 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
 	//}, 2000);
 }
 
+
+function jqueryInit(){
+
+    setTimeout(function(){
+
+        //console.log($('a.titulo-post').length);
+        $('a.titulo-post').click(function(){
+
+            nomePost = $(this).attr('data-post-id');
+            //console.log(nomePost);
+        });
+
+    }, 200);
+     
+}
 
 
