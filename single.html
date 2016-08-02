@@ -3,6 +3,35 @@
 	<p>{{ posts.post_content }}</p>
 	<hr>
 	<div ng-repeat="comment in comments">
+		<h4>{{ comment.comment_author }}</h4>
 		<p>{{ comment.comment_content }}</p>
+		<p>{{ comment.comment_date | date:h }}</p>
+
 	</div>
+
+
+	<form id="comment-form">
+
+		<input type="hidden" name="post_id" value="{{ posts.ID }}">
+		<legend>
+			Nome: <br>
+			<input type="text" name="nome">
+			
+		</legend>
+
+		<legend>
+			E-mail: <br>
+			<input type="text" name="email">
+			
+		</legend>
+
+		<legend>
+			
+			Mensagem: <textarea name="comentario" id="" cols="30" rows="10"></textarea>
+			
+		</legend>
+
+		<button id="enviar_comment">Enviar</button>
+
+	</form>
 </div>

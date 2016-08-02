@@ -31,6 +31,14 @@ app.config(function($routeProvider) {
 app.controller('mainController', ['$scope', '$http', posts]);
 app.controller('singleController', ['$scope', '$http', singlePost]);
 
+app.filter('invertedata', function(){
+    return function(text, end){
+        
+        console.log(text);
+    }
+});
+
+
 
 function singlePost($scope, $http) {
 
@@ -46,8 +54,9 @@ function singlePost($scope, $http) {
                 })
             .then(function(response) {
                 $scope.posts  = response.data[0];
-                $scope.comments = response.data[1];
-                console.log(response.data[0]);
+                $scope.comments = response.data;
+                console.log($scope.posts);
+                console.log($scope.comments);
                 //$scope.posts        = 'response.data';
             });
         
@@ -93,5 +102,3 @@ function jqueryInit(){
     }, 200);
      
 }
-
-

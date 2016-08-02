@@ -13,5 +13,20 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
 	<script src="angular.js"></script>
+	<script>
+		$(document).ready(function(){
+
+			setTimeout(function(){
+				$('body').on('click', '#enviar_comment', function(){
+					//alert();
+					var params = $('#comment-form').serialize();
+					$.get('enviar.php?'+params, function(data, status){
+						alert(data);
+					});
+				});
+			}, 1000);
+			
+		});
+	</script>
 </body>
 </html>

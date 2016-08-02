@@ -10,9 +10,9 @@
 	if(isset($_GET['post'])){
 		//echo 'entrou';
 		$post = $_GET['post'];
-		$sql = "SELECT * FROM wp_posts WHERE ID=".$post;
+		$cmd = "SELECT * FROM wp_posts WHERE ID=".$post;
 
-		$exe = mysqli_query($conn, $sql);
+		$exe = mysqli_query($conn, $cmd);
 
 		if(!$exe){
 			die(mysql_error());
@@ -20,8 +20,8 @@
 
 		$posts = mysqli_fetch_all($exe,MYSQLI_ASSOC);
 
-		$sql = "SELECT * FROM wp_comments WHERE comment_post_ID=".$post;
-		$exe = mysqli_query($conn, $sql);
+		$cmdc = "SELECT * FROM wp_comments WHERE comment_post_ID=".$post;
+		$exe = mysqli_query($conn, $cmdc);
 
 		if(!$exe){
 			die(mysql_error());
